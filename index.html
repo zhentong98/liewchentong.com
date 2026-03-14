@@ -526,53 +526,6 @@
       transition: var(--transition-theme);
     }
 
-    /* ——— Tech Stack ——— */
-    .stack-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-
-    .stack-category {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.5rem;
-      transition: all 0.3s;
-    }
-
-    .stack-category:hover { border-color: var(--border-hover); }
-
-    .stack-category h4 {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 1rem;
-    }
-
-    .stack-category ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .stack-category li {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      padding-left: 1rem;
-      position: relative;
-    }
-
-    .stack-category li::before {
-      content: '›';
-      position: absolute;
-      left: 0;
-      color: var(--text-muted);
-    }
-
     /* ——— About / Contact ——— */
     .about-content {
       display: grid;
@@ -588,6 +541,24 @@
     }
 
     .about-text p + p { margin-top: 1rem; }
+
+    .about-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .about-skills span {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.35rem 0.75rem;
+      border-radius: 5px;
+      letter-spacing: 0.02em;
+      transition: var(--transition-theme);
+    }
 
     .about-details { display: flex; flex-direction: column; gap: 1.5rem; }
 
@@ -657,8 +628,6 @@
 
       .projects-grid { grid-template-columns: 1fr; }
 
-      .stack-grid { grid-template-columns: 1fr 1fr; }
-
       .nav-links { gap: 1rem; }
 
       .nav-links a { font-size: 0.72rem; }
@@ -669,7 +638,6 @@
     }
 
     @media (max-width: 480px) {
-      .stack-grid { grid-template-columns: 1fr; }
       .hero-links { flex-direction: column; }
       .hero-links a { text-align: center; }
       .nav-links { gap: 0.75rem; }
@@ -687,7 +655,6 @@
       <ul class="nav-links">
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#stack">Stack</a></li>
         <li><a href="#about">About</a></li>
       </ul>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
@@ -921,74 +888,11 @@
     </div>
   </section>
 
-  <!-- Tech Stack -->
-  <section id="stack">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-number">03</span>
-        <h2 class="section-title">Tech Stack</h2>
-        <div class="section-line"></div>
-      </div>
-      <div class="stack-grid">
-
-        <div class="stack-category">
-          <h4>Frontend</h4>
-          <ul>
-            <li>Angular / AngularJS</li>
-            <li>React</li>
-            <li>Ionic</li>
-            <li>Tailwind CSS</li>
-            <li>Alpine.js</li>
-          </ul>
-        </div>
-
-        <div class="stack-category">
-          <h4>Backend</h4>
-          <ul>
-            <li>PHP / Laravel</li>
-            <li>Java / Spring Boot</li>
-            <li>Python / FastAPI</li>
-          </ul>
-        </div>
-
-        <div class="stack-category">
-          <h4>Database</h4>
-          <ul>
-            <li>MySQL</li>
-            <li>MongoDB</li>
-            <li>Redis</li>
-            <li>Elasticsearch</li>
-          </ul>
-        </div>
-
-        <div class="stack-category">
-          <h4>Mobile</h4>
-          <ul>
-            <li>Ionic / Cordova</li>
-            <li>React Native</li>
-            <li>Swift</li>
-          </ul>
-        </div>
-
-        <div class="stack-category">
-          <h4>DevOps & Tools</h4>
-          <ul>
-            <li>Docker</li>
-            <li>Git</li>
-            <li>CI/CD Pipelines</li>
-            <li>RabbitMQ</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
   <!-- About -->
   <section id="about">
     <div class="container">
       <div class="section-header">
-        <span class="section-number">04</span>
+        <span class="section-number">03</span>
         <h2 class="section-title">About</h2>
         <div class="section-line"></div>
       </div>
@@ -1005,6 +909,24 @@
             from New Era University, Malaysia, and a Certificate in IoT from
             Beijing Vocational College.
           </p>
+          <div class="about-skills">
+            <span>PHP/Laravel</span>
+            <span>Angular</span>
+            <span>React</span>
+            <span>Ionic</span>
+            <span>Spring Boot</span>
+            <span>Python/FastAPI</span>
+            <span>MySQL</span>
+            <span>MongoDB</span>
+            <span>Redis</span>
+            <span>Elasticsearch</span>
+            <span>Docker</span>
+            <span>Git</span>
+            <span>React Native</span>
+            <span>Swift</span>
+            <span>RabbitMQ</span>
+            <span>Tailwind CSS</span>
+          </div>
         </div>
         <div class="about-details">
           <div class="detail-item">
