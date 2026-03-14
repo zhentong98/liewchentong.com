@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chentong Liew — Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0b;
+      --bg-raised: #131315;
+      --bg-card: #18181b;
+      --border: #27272a;
+      --border-hover: #3f3f46;
+      --text: #fafafa;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+      --accent: #e4c87a;
+      --accent-dim: rgba(228, 200, 122, 0.12);
+      --tag-bg: #1e1e22;
+      --tag-text: #d4d4d8;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Outfit', -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ——— Grain overlay ——— */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px;
+    }
+
+    /* ——— Layout ——— */
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ——— Navigation ——— */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(10, 10, 11, 0.8);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    nav.scrolled { border-bottom-color: var(--border); }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ——— Hero ——— */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5rem;
+      position: relative;
+    }
+
+    .hero-content { max-width: 700px; }
+
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.4s forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.6s forwards;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.8s forwards;
+    }
+
+    .hero-links a {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.25s;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-links a:hover {
+      color: var(--text);
+      border-color: var(--border-hover);
+      background: var(--bg-raised);
+    }
+
+    .hero-links a.primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-links a.primary:hover {
+      background: #d4b86a;
+      border-color: #d4b86a;
+    }
+
+    /* ——— Decorative line ——— */
+    .hero-deco {
+      position: absolute;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 200px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      opacity: 0.3;
+    }
+
+    /* ——— Section styles ——— */
+    section {
+      padding: 7rem 0;
+    }
+
+    section:not(.hero) {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-number {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ——— Projects ——— */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .project-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-dim);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .project-links { display: flex; gap: 0.75rem; }
+
+    .project-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.25s;
+    }
+
+    .project-links a:hover { color: var(--text); }
+
+    .project-card h3 {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tags span {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ——— Tech Stack ——— */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .stack-category {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.3s;
+    }
+
+    .stack-category:hover { border-color: var(--border-hover); }
+
+    .stack-category h4 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .stack-category ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .stack-category li {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .stack-category li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    /* ——— About / Contact ——— */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .about-text p + p { margin-top: 1rem; }
+
+    .about-details { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .detail-item {
+      border-left: 1px solid var(--border);
+      padding-left: 1.25rem;
+    }
+
+    .detail-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
+    }
+
+    .detail-value {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .detail-value a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.25s;
+    }
+
+    .detail-value a:hover { opacity: 0.75; }
+
+    /* ——— Footer ——— */
+    footer {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer p {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ——— Animations ——— */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ——— Responsive ——— */
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+
+      .hero { min-height: auto; padding: 8rem 0 4rem; }
+
+      .hero-deco { display: none; }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .projects-grid { grid-template-columns: 1fr; }
+
+      .stack-grid { grid-template-columns: 1fr 1fr; }
+
+      .nav-links { gap: 1.25rem; }
+
+      .nav-links a { font-size: 0.72rem; }
+
+      section { padding: 4rem 0; }
+    }
+
+    @media (max-width: 480px) {
+      .stack-grid { grid-template-columns: 1fr; }
+      .hero-links { flex-direction: column; }
+      .hero-links a { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-logo">CT.LIEW</div>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-label">Software Developer</p>
+        <h1>Building things<br>that <em>matter</em></h1>
+        <p class="hero-description">
+          I'm Chentong — a developer who turns ideas into clean,
+          functional software. Focused on full-stack development
+          with attention to both the code and the craft.
+        </p>
+        <div class="hero-links">
+          <a href="mailto:hello@liewchentong.com" class="primary">Get in touch</a>
+          <a href="https://github.com/chentong" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="https://linkedin.com/in/chentong" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-deco"></div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2 class="section-title">Selected Projects</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">📊</div>
+            <div class="project-links">
+              <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
+              <a href="#" target="_blank" rel="noopener">Live ↗</a>
+            </div>
+          </div>
+          <h3>Analytics Dashboard</h3>
+          <p>Real-time data visualization platform with interactive charts, custom filters, and automated reporting for business metrics.</p>
+          <div class="project-tags">
+            <span>React</span>
+            <span>TypeScript</span>
+            <span>D3.js</span>
+            <span>Node.js</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">🛒</div>
+            <div class="project-links">
+              <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+          <h3>E-Commerce Platform</h3>
+          <p>Full-stack online store with inventory management, payment integration, and a responsive customer-facing storefront.</p>
+          <div class="project-tags">
+            <span>Laravel</span>
+            <span>Vue.js</span>
+            <span>MySQL</span>
+            <span>Stripe</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">🤖</div>
+            <div class="project-links">
+              <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
+              <a href="#" target="_blank" rel="noopener">Live ↗</a>
+            </div>
+          </div>
+          <h3>AI Chat Assistant</h3>
+          <p>Conversational AI interface with context-aware responses, multi-turn dialogue, and customizable system prompts.</p>
+          <div class="project-tags">
+            <span>Python</span>
+            <span>FastAPI</span>
+            <span>OpenAI</span>
+            <span>React</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">📱</div>
+            <div class="project-links">
+              <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+          <h3>Task Manager App</h3>
+          <p>Cross-platform mobile app for managing tasks with drag-and-drop boards, team collaboration, and push notifications.</p>
+          <div class="project-tags">
+            <span>React Native</span>
+            <span>Firebase</span>
+            <span>Redux</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">🔐</div>
+            <div class="project-links">
+              <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+          <h3>Auth Microservice</h3>
+          <p>Secure authentication service with JWT, OAuth2, role-based access control, and session management built for scale.</p>
+          <div class="project-tags">
+            <span>Go</span>
+            <span>PostgreSQL</span>
+            <span>Redis</span>
+            <span>Docker</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-icon">🌐</div>
+            <div class="project-links">
+              <a href="#" target="_blank" rel="noopener">GitHub ↗</a>
+              <a href="#" target="_blank" rel="noopener">Live ↗</a>
+            </div>
+          </div>
+          <h3>Portfolio Website</h3>
+          <p>This very site — a minimal, performance-focused portfolio built with pure HTML, CSS, and vanilla JavaScript.</p>
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section id="stack">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <h2 class="section-title">Tech Stack</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="stack-grid">
+
+        <div class="stack-category">
+          <h4>Frontend</h4>
+          <ul>
+            <li>React / Next.js</li>
+            <li>Vue.js</li>
+            <li>TypeScript</li>
+            <li>Tailwind CSS</li>
+          </ul>
+        </div>
+
+        <div class="stack-category">
+          <h4>Backend</h4>
+          <ul>
+            <li>Node.js</li>
+            <li>Laravel / PHP</li>
+            <li>Python / FastAPI</li>
+            <li>Go</li>
+          </ul>
+        </div>
+
+        <div class="stack-category">
+          <h4>Database</h4>
+          <ul>
+            <li>PostgreSQL</li>
+            <li>MySQL</li>
+            <li>MongoDB</li>
+            <li>Redis</li>
+          </ul>
+        </div>
+
+        <div class="stack-category">
+          <h4>DevOps</h4>
+          <ul>
+            <li>Docker</li>
+            <li>AWS / GCP</li>
+            <li>CI/CD Pipelines</li>
+            <li>Linux</li>
+          </ul>
+        </div>
+
+        <div class="stack-category">
+          <h4>Tools</h4>
+          <ul>
+            <li>Git / GitHub</li>
+            <li>Figma</li>
+            <li>VS Code</li>
+            <li>Postman</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">03</span>
+        <h2 class="section-title">About</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            I'm a software developer based in Malaysia. I enjoy building
+            well-crafted applications — from concept to deployment. I care about
+            writing clean code, thoughtful user experiences, and systems that
+            scale.
+          </p>
+          <p>
+            When I'm not coding, you'll find me exploring new technologies,
+            contributing to open source, or learning about system design
+            and architecture.
+          </p>
+        </div>
+        <div class="about-details">
+          <div class="detail-item">
+            <div class="detail-label">Location</div>
+            <div class="detail-value">Malaysia</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Email</div>
+            <div class="detail-value"><a href="mailto:hello@liewchentong.com">hello@liewchentong.com</a></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">GitHub</div>
+            <div class="detail-value"><a href="https://github.com/chentong" target="_blank" rel="noopener">github.com/chentong</a></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">LinkedIn</div>
+            <div class="detail-value"><a href="https://linkedin.com/in/chentong" target="_blank" rel="noopener">linkedin.com/in/chentong</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Chentong Liew — Built with care, deployed on GitHub Pages</p>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Section reveal on scroll
+    const sections = document.querySelectorAll('section:not(.hero)');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+
+</body>
+</html>
