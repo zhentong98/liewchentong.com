@@ -576,43 +576,77 @@
 
     .project:hover::after { opacity: 1; }
 
+    /* Card header: platform badge row */
     .project-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
     }
 
-    .project-emoji {
-      width: 36px;
-      height: 36px;
-      background: var(--accent-glow-strong);
-      border-radius: 8px;
+    .project-platform {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+    }
+
+    .project-live {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.04em;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 1rem;
+      gap: 0.3rem;
+      transition: all 0.25s;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
     }
 
-    .project-type {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: var(--text-muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+    .project-live:hover {
+      background: var(--accent-glow);
+      color: var(--accent-hover);
     }
 
-    .project h3 {
-      font-size: 1rem;
-      font-weight: 600;
+    .project-live-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #34d399;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Card title */
+    .project-title {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
       margin-bottom: 0.5rem;
+    }
+
+    .project-title h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
       line-height: 1.3;
     }
 
     .project p {
       font-size: 0.82rem;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.65;
       margin-bottom: auto;
       padding-bottom: 1rem;
     }
@@ -621,6 +655,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.3rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
     }
 
     /* ═══════════════════════════════════
@@ -873,26 +909,29 @@
 
         <div class="project">
           <div class="project-head">
-            <div class="project-emoji">🔍</div>
-            <span class="project-type">Web</span>
+            <span class="project-platform">Web</span>
+            <a href="https://ekyc.finnciticpswap.com" target="_blank" rel="noopener" class="project-live"><span class="project-live-dot"></span> Live</a>
           </div>
-          <h3>Finnciti eKYC</h3>
-          <p>Electronic identity verification with document capture, OCR, liveness detection, and face recognition. Multi-country support with admin review dashboard.</p>
+          <div class="project-title"><h3>Finnciti eKYC</h3></div>
+          <p>Multi-country identity verification platform with 5 microservices: PaddleOCR for document text extraction, RetinaFace + ArcFace for face matching, MediaPipe for liveness detection (blink, head turn, smile), and video quality scoring. Supports Malaysia MyKAD, China National ID, and Singapore NRIC with bilingual admin dashboard and automated GPU droplet provisioning.</p>
           <div class="project-tags">
-            <span class="tag">Laravel</span>
-            <span class="tag">Python/FastAPI</span>
+            <span class="tag">Laravel 11</span>
+            <span class="tag">FastAPI</span>
             <span class="tag">PaddleOCR</span>
             <span class="tag">ArcFace</span>
+            <span class="tag">MediaPipe</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Redis</span>
+            <span class="tag">Cloudflare R2</span>
             <span class="tag">Docker</span>
           </div>
         </div>
 
         <div class="project">
           <div class="project-head">
-            <div class="project-emoji">🛒</div>
-            <span class="project-type">Web / App</span>
+            <span class="project-platform">Web / App</span>
           </div>
-          <h3>FinnMall</h3>
+          <div class="project-title"><h3>FinnMall</h3></div>
           <p>eCommerce platform where users purchase items using community points earned from educational programs.</p>
           <div class="project-tags">
             <span class="tag">Spring Boot</span>
@@ -904,10 +943,9 @@
 
         <div class="project">
           <div class="project-head">
-            <div class="project-emoji">🚚</div>
-            <span class="project-type">Web / App</span>
+            <span class="project-platform">Web / App</span>
           </div>
-          <h3>MSU</h3>
+          <div class="project-title"><h3>MSU</h3></div>
           <p>Multi-endpoint marketplace with seller, buyer, and driver interfaces for managing products, shopping, and delivery.</p>
           <div class="project-tags">
             <span class="tag">Spring Boot</span>
@@ -919,10 +957,9 @@
 
         <div class="project">
           <div class="project-head">
-            <div class="project-emoji">🏥</div>
-            <span class="project-type">Web / PWA</span>
+            <span class="project-platform">Web / PWA</span>
           </div>
-          <h3>Ardence</h3>
+          <div class="project-title"><h3>Ardence</h3></div>
           <p>Loyalty program for healthcare professionals in Singapore and Malaysia. QR code scanning for points and reward redemptions.</p>
           <div class="project-tags">
             <span class="tag">Laravel</span>
@@ -934,10 +971,9 @@
 
         <div class="project">
           <div class="project-head">
-            <div class="project-emoji">🧪</div>
-            <span class="project-type">Web / App</span>
+            <span class="project-platform">Web / App</span>
           </div>
-          <h3>Bostik FlexApp</h3>
+          <div class="project-title"><h3>Bostik FlexApp</h3></div>
           <p>Product Selector and Smart Tool for searching customized adhesive solutions with precise calculations.</p>
           <div class="project-tags">
             <span class="tag">Angular</span>
@@ -948,10 +984,9 @@
 
         <div class="project">
           <div class="project-head">
-            <div class="project-emoji">🏦</div>
-            <span class="project-type">iOS / Web</span>
+            <span class="project-platform">iOS / Web</span>
           </div>
-          <h3>BioBank</h3>
+          <div class="project-title"><h3>BioBank</h3></div>
           <p>Health records stored on IPFS via blockchain for tamper-proof medical data management.</p>
           <div class="project-tags">
             <span class="tag">Angular</span>
@@ -964,10 +999,9 @@
 
         <div class="project">
           <div class="project-head">
-            <div class="project-emoji">🌾</div>
-            <span class="project-type">Web</span>
+            <span class="project-platform">Web</span>
           </div>
-          <h3>eAGRO</h3>
+          <div class="project-title"><h3>eAGRO</h3></div>
           <p>Agricultural marketplace providing premium fertilizers to smallholders, backed by Malaysian Palm Oil Board research.</p>
           <div class="project-tags">
             <span class="tag">PHP</span>
@@ -978,10 +1012,9 @@
 
         <div class="project">
           <div class="project-head">
-            <div class="project-emoji">💰</div>
-            <span class="project-type">iOS / Android</span>
+            <span class="project-platform">iOS / Android</span>
           </div>
-          <h3>Finnport</h3>
+          <div class="project-title"><h3>Finnport</h3></div>
           <p>Personal expense tracker with spending breakdowns by type and month.</p>
           <div class="project-tags">
             <span class="tag">Swift</span>
@@ -992,10 +1025,9 @@
 
         <div class="project">
           <div class="project-head">
-            <div class="project-emoji">🏢</div>
-            <span class="project-type">Web</span>
+            <span class="project-platform">Web</span>
           </div>
-          <h3>UPG Holding</h3>
+          <div class="project-title"><h3>UPG Holding</h3></div>
           <p>Organization structure and commission management system for property agents.</p>
           <div class="project-tags">
             <span class="tag">PHP</span>
