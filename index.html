@@ -629,6 +629,29 @@
       color: var(--accent-hover);
     }
 
+    .project-links-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .project-store {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      transition: all 0.25s;
+    }
+
+    .project-store:hover {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+    }
+
     .project-live-dot {
       width: 5px;
       height: 5px;
@@ -931,14 +954,23 @@
         <div class="project">
           <div class="project-head">
             <span class="project-platform">Web / App</span>
+            <div class="project-links-row">
+              <a href="https://finnciticpswap.com/" target="_blank" rel="noopener" class="project-live"><span class="project-live-dot"></span> Live</a>
+              <a href="https://apps.apple.com/us/app/finnmall/id1624828615" target="_blank" rel="noopener" class="project-store">iOS</a>
+              <a href="https://play.google.com/store/apps/details?id=com.xover.finnciti.app" target="_blank" rel="noopener" class="project-store">Android</a>
+            </div>
           </div>
           <div class="project-title"><h3>FinnMall</h3></div>
-          <p>eCommerce platform where users purchase items using community points earned from educational programs.</p>
+          <p>Full-featured eCommerce platform with buyer/seller tiers, escrow payment system, 13 RabbitMQ queues for async processing, and 55+ database entities. Features Google Cloud Vision for image search, Retail API for recommendations, real-time chat, and a 15+ module admin panel. Available on iOS, Android, and Huawei AppGallery.</p>
           <div class="project-tags">
             <span class="tag">Spring Boot</span>
-            <span class="tag">Angular</span>
-            <span class="tag">Ionic</span>
+            <span class="tag">Angular 14</span>
+            <span class="tag">Ionic 6</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Redis</span>
             <span class="tag">Elasticsearch</span>
+            <span class="tag">RabbitMQ</span>
+            <span class="tag">Google Cloud</span>
           </div>
         </div>
 
